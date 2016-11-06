@@ -1,25 +1,20 @@
 # uvm_debug
 
-+-------------------------------+
-|                               |
-| UVM interactive debug library |
-|                               |
-+-------------------------------+
-
-       Author: Horace Chan
-    horace.chan@microsemi.com
+#UVM interactive debug library
+Author: Horace Chan
+horace.chan@microsemi.com
 
 TODO: add short description
 
-DOCUMENTS:
+##DOCUMENTS:
 TODO
 
-INSTALLATION:
+##INSTALLATION:
 TODO
 
-TESTBENCH SETUP:
+##TESTBENCH SETUP:
 TODO
 
-COMPILING:
+##COMPILING:
 TODO
 

@@ -3,15 +3,15 @@
 
 TODO: add short description
 
-##DOCUMENTS:
+##Documents:
 TODO
 
-##INSTALLATION:
+##Installation:
 TODO
 
-##TESTBENCH SETUP:
+##Testbench Setup:
 TODO
 
-##COMPILING:
+##Compiling:
 TODO
 

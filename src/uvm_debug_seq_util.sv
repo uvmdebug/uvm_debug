@@ -57,11 +57,18 @@ class uvm_debug_seq_util extends uvm_object;
     debug_command_seq_util_cb dbg_cmd[$];
 
     // sequence list
-    uvm_sequence_base seq_list[string];
+    uvm_sequence_base dynamic_seqs[string];
 
     // -------------------------------------------------------------- 
     // helper functions
     // -------------------------------------------------------------- 
+
+    // list the dynamic sequences
+    virtual function void seq_list();
+        foreach (dynamic_seqs[seq_name]) begin
+            $display(" ", seq_name);
+        end
+    endfunction : seq_list
 
     // create a sequence 
     virtual function void seq_create(string seq_type, string seq_name);
@@ -70,7 +77,7 @@ class uvm_debug_seq_util extends uvm_object;
         if (seq == null) begin
             `uvm_warning("UVM_DBG/SEQ_UTIL", {"cannot create sequence type: ", seq_type});
         end else begin
-            seq_list[seq_name] = seq;
+            dynamic_seqs[seq_name] = seq;
             `uvm_info("UVM_DBG/SEQ_UTIL", {"new sequence created: ", seq_name}, UVM_LOW);
         end
     endfunction : seq_create
@@ -78,7 +85,7 @@ class uvm_debug_seq_util extends uvm_object;
     // randomize a sequence
     virtual function void seq_rand(string seq_name);
         int rand_ok;
-        uvm_sequence_base seq = seq_list[seq_name];
+        uvm_sequence_base seq = dynamic_seqs[seq_name];
         if (seq == null) begin
             `uvm_warning("UVM_DBG/SEQ_UTIL", {"sequence not found: ", seq_name});
         end else begin
@@ -88,7 +95,7 @@ class uvm_debug_seq_util extends uvm_object;
 
     // set fields in the sequence
     virtual function void seq_set_fields(string seq_name, string vals[string]);
-        uvm_sequence_base seq = seq_list[seq_name];
+        uvm_sequence_base seq = dynamic_seqs[seq_name];
         if (seq == null) begin
             `uvm_warning("UVM_DBG/SEQ_UTIL", {"sequence not found: ", seq_name});
         end else begin
@@ -103,7 +110,7 @@ class uvm_debug_seq_util extends uvm_object;
 
     // start the sequence
     virtual task seq_start(string seq_name, string seqr_path, int this_priority = -1, bit new_thread = 0);
-        uvm_sequence_base seq = seq_list[seq_name];
+        uvm_sequence_base seq = dynamic_seqs[seq_name];
         if (seq == null) begin
             `uvm_warning("UVM_DBG/SEQ_UTIL", {"sequence not found: ", seq_name});
         end else begin
@@ -124,7 +131,7 @@ class uvm_debug_seq_util extends uvm_object;
 
     // kill the sequence
     virtual function void seq_kill(string seq_name);
-        uvm_sequence_base seq = seq_list[seq_name];
+        uvm_sequence_base seq = dynamic_seqs[seq_name];
         if (seq == null) begin
             `uvm_warning("UVM_DBG/SEQ_UTIL", {"sequence not found: ", seq_name});
         end else begin
@@ -142,6 +149,24 @@ endclass : uvm_debug_seq_util
 // -------------------------------------------------------------- 
 // uvm_reg debug commands
 // -------------------------------------------------------------- 
+
+class debug_command_seq_list extends debug_command_seq_util_cb;
+    uvm_debug_seq_util seq_util;
+
+    `uvm_object_utils(debug_command_seq_list)
+    function new(string name = "debug_command_seq_list");
+        super.new(name);
+        // -------------------------------------------------------------- 
+        command =       "seq_list";
+        usage =         "";
+        description =   "list the dynamic created sequences";
+        // -------------------------------------------------------------- 
+    endfunction
+
+    task parse_args(string args[$]);
+        seq_util.seq_list();
+    endtask
+endclass: debug_command_seq_list
 
 class debug_command_seq_create extends debug_command_seq_util_cb;
     uvm_debug_seq_util seq_util;
@@ -248,6 +273,8 @@ endclass: debug_command_seq_kill
 function void uvm_debug_seq_util::add_debug_commands();
     debug_command_seq_util_cb new_dbg_cmd;
 
+    new_dbg_cmd = debug_command_seq_list::type_id::create("seq_list");
+    dbg_cmd.push_back(new_dbg_cmd);
     new_dbg_cmd = debug_command_seq_create::type_id::create("seq_create");
     dbg_cmd.push_back(new_dbg_cmd);
     new_dbg_cmd = debug_command_seq_rand::type_id::create("seq_rand");

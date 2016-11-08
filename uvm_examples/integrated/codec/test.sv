@@ -58,6 +58,8 @@ tb_env env;
 
 initial
 begin
+   $timeformat(-9, 0, "ns", 0);
+
    env = new("env");
 
    uvm_config_db#(tb_ctl_vif)::set(null, "env", "vif", tb_top.ctl);

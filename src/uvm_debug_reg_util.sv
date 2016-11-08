@@ -192,8 +192,6 @@ endclass : uvm_debug_reg_util
 // -------------------------------------------------------------- 
 
 class debug_command_wr_addr extends debug_command_reg_util_cb;
-    uvm_debug_reg_util reg_util;
-
     `uvm_object_utils(debug_command_wr_addr)
     function new(string name = "debug_command_wr_addr");
         super.new(name);
@@ -218,9 +216,7 @@ class debug_command_wr_addr extends debug_command_reg_util_cb;
 endclass: debug_command_wr_addr
 
 class debug_command_rd_addr extends debug_command_reg_util_cb;
-    uvm_debug_reg_util reg_util;
-
-    `uvm_object_utils(debug_command_wr_addr)
+    `uvm_object_utils(debug_command_rd_addr)
     function new(string name = "debug_command_rd_addr");
         super.new(name);
         // -------------------------------------------------------------- 
@@ -242,8 +238,6 @@ class debug_command_rd_addr extends debug_command_reg_util_cb;
 endclass: debug_command_rd_addr
 
 class debug_command_wr_reg extends debug_command_reg_util_cb;
-    uvm_debug_reg_util reg_util;
-
     `uvm_object_utils(debug_command_wr_reg)
     function new(string name = "debug_command_wr_reg");
         super.new(name);
@@ -266,8 +260,6 @@ class debug_command_wr_reg extends debug_command_reg_util_cb;
 endclass: debug_command_wr_reg
 
 class debug_command_rd_reg extends debug_command_reg_util_cb;
-    uvm_debug_reg_util reg_util;
-
     `uvm_object_utils(debug_command_rd_reg)
     function new(string name = "debug_command_rd_reg");
         super.new(name);
@@ -288,8 +280,6 @@ class debug_command_rd_reg extends debug_command_reg_util_cb;
 endclass: debug_command_rd_reg
 
 class debug_command_wr_regfld extends debug_command_reg_util_cb;
-    uvm_debug_reg_util reg_util;
-
     `uvm_object_utils(debug_command_wr_regfld)
     function new(string name = "debug_command_wr_regfld");
         super.new(name);
@@ -312,8 +302,6 @@ class debug_command_wr_regfld extends debug_command_reg_util_cb;
 endclass: debug_command_wr_regfld
 
 class debug_command_rd_regfld extends debug_command_reg_util_cb;
-    uvm_debug_reg_util reg_util;
-
     `uvm_object_utils(debug_command_rd_regfld)
     function new(string name = "debug_command_rd_regfld");
         super.new(name);

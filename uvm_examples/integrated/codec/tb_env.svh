@@ -19,6 +19,7 @@
 // -------------------------------------------------------------
 //
 
+import uvm_debug_pkg::*;
 
 `include "reg_model.svh"
 
@@ -85,7 +86,7 @@ class tb_env extends uvm_env;
       
       apb = apb_agent::type_id::create("apb", this);
       if (regmodel == null) begin
-         regmodel = reg_dut::type_id::create("regmodel",,get_full_name());
+         regmodel = reg_dut::type_id::create("regmodel", this);
          regmodel.build();
          regmodel.lock_model();
       end
@@ -312,8 +313,11 @@ class tb_env extends uvm_env;
 
 
    task main_phase(uvm_phase phase);
+       uvm_debug_util uvm_debug = uvm_debug_util::get();
+       uvm_debug.reg_util.set_top(regmodel);
 
       `uvm_info("TB/TRACE", "Applying primary stimulus...", UVM_NONE);
+      uvm_debug.prompt(1);
 
       fork
          begin

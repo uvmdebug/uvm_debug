@@ -26,6 +26,14 @@ virtual class vip_sequence extends uvm_sequence#(vip_tr);
      super.new(name);
      set_automatic_phase_objection(1);
   endfunction
+
+  virtual task pre_start();
+    `uvm_info("VIP_SEQ", $sformatf("%s - start", get_name()), UVM_LOW);
+  endtask
+
+  virtual task post_start();
+    `uvm_info("VIP_SEQ", $sformatf("%s - done", get_name()), UVM_LOW);
+  endtask
   
 endclass
 

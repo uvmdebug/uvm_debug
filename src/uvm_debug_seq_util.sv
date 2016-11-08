@@ -231,8 +231,6 @@ endclass : uvm_debug_seq_util
 // -------------------------------------------------------------- 
 
 class debug_command_seq_list extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_list)
     function new(string name = "debug_command_seq_list");
         super.new(name);
@@ -249,8 +247,6 @@ class debug_command_seq_list extends debug_command_seq_util_cb;
 endclass: debug_command_seq_list
 
 class debug_command_seq_create extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_create)
     function new(string name = "debug_command_seq_create");
         super.new(name);
@@ -267,8 +263,6 @@ class debug_command_seq_create extends debug_command_seq_util_cb;
 endclass: debug_command_seq_create
 
 class debug_command_seq_rand extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_rand)
     function new(string name = "debug_command_seq_rand");
         super.new(name);
@@ -285,8 +279,6 @@ class debug_command_seq_rand extends debug_command_seq_util_cb;
 endclass: debug_command_seq_rand
 
 class debug_command_seq_set_fields extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_set_fields)
     function new(string name = "debug_command_seq_set_fields");
         super.new(name);
@@ -305,8 +297,6 @@ class debug_command_seq_set_fields extends debug_command_seq_util_cb;
 endclass: debug_command_seq_set_fields
 
 class debug_command_seq_start extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_start)
     function new(string name = "debug_command_seq_start");
         super.new(name);
@@ -330,8 +320,6 @@ class debug_command_seq_start extends debug_command_seq_util_cb;
 endclass: debug_command_seq_start
 
 class debug_command_seq_kill extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_kill)
     function new(string name = "debug_command_seq_kill");
         super.new(name);
@@ -348,8 +336,6 @@ class debug_command_seq_kill extends debug_command_seq_util_cb;
 endclass: debug_command_seq_kill
 
 class debug_command_seq_item_list extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_item_list)
     function new(string name = "debug_command_seq_item_list");
         super.new(name);
@@ -366,8 +352,6 @@ class debug_command_seq_item_list extends debug_command_seq_util_cb;
 endclass: debug_command_seq_item_list
 
 class debug_command_seq_item_create extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_item_create)
     function new(string name = "debug_command_seq_item_create");
         super.new(name);
@@ -384,8 +368,6 @@ class debug_command_seq_item_create extends debug_command_seq_util_cb;
 endclass: debug_command_seq_item_create
 
 class debug_command_seq_item_rand extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_item_rand)
     function new(string name = "debug_command_seq_item_rand");
         super.new(name);
@@ -402,8 +384,6 @@ class debug_command_seq_item_rand extends debug_command_seq_util_cb;
 endclass: debug_command_seq_item_rand
 
 class debug_command_seq_item_set_fields extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seq_item_set_fields)
     function new(string name = "debug_command_seq_item_set_fields");
         super.new(name);
@@ -422,8 +402,6 @@ class debug_command_seq_item_set_fields extends debug_command_seq_util_cb;
 endclass: debug_command_seq_item_set_fields
 
 class debug_command_seqr_stop_sequences extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seqr_stop_sequences)
     function new(string name = "debug_command_seqr_stop_sequences");
         super.new(name);
@@ -440,8 +418,6 @@ class debug_command_seqr_stop_sequences extends debug_command_seq_util_cb;
 endclass: debug_command_seqr_stop_sequences
 
 class debug_command_seqr_execute_item extends debug_command_seq_util_cb;
-    uvm_debug_seq_util seq_util;
-
     `uvm_object_utils(debug_command_seqr_execute_item)
     function new(string name = "debug_command_seqr_execute_item");
         super.new(name);

@@ -175,7 +175,7 @@ endfunction
 // --------------------------------------------------------------
 
 // return an string value form the option list
-function automatic int get_option_string(string options[string], string key, int default_value="");
+function automatic string get_option_string(string options[string], string key, string default_value="");
     if (options.exists(key)) begin
         return options[key];
     end else begin

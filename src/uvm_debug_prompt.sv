@@ -301,6 +301,21 @@ class debug_command_run extends uvm_debug_command_cb;
     endtask
 endclass: debug_command_run
 
+class debug_command_puts extends uvm_debug_command_cb;
+    function new(string name = "debug_command_puts");
+        super.new(name);
+        // -------------------------------------------------------------- 
+        command =       "puts";
+        usage =         "<message>";
+        description =   "print a string";
+        // -------------------------------------------------------------- 
+    endfunction
+
+    task parse_args(string args[$]);
+        `uvm_info("UVM_DBG", text::join_str(args[1:$], " "), UVM_LOW);
+    endtask
+endclass: debug_command_puts
+
 class debug_command_history extends uvm_debug_command_cb;
     function new(string name = "debug_command_history");
         super.new(name);

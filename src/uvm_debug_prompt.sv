@@ -158,7 +158,9 @@ class uvm_debug_util extends uvm_object;
                 line = "";
                 $sformat(prompt, "%t: %s", $time, "debug > ");
                 line = read_line(prompt);
-                cmd_history.push_back(line);
+                if (line.len() > 0) begin 
+                    cmd_history.push_back(line);
+                end
 
                 // search the debug command list and run the command
                 run_debug_command(line);
@@ -327,6 +329,7 @@ class debug_command_history extends uvm_debug_command_cb;
     endfunction
 
     task parse_args(string args[$]);
+        void'(uvm_debug.cmd_history.pop_back());
         if (args.size() == 1 || args[1] == "list") begin
             // list all commands in the history
             foreach (uvm_debug.cmd_history[i]) begin
@@ -339,7 +342,10 @@ class debug_command_history extends uvm_debug_command_cb;
             // save to file
             UVM_FILE fh = $fopen(args[2], "w");
             foreach (uvm_debug.cmd_history[i]) begin
-                $fdisplay(fh, "%s", uvm_debug.cmd_history[i]);
+                // don't export history commands or it will create infinite loop in the command file
+                if (!uvm_is_match("history*", uvm_debug.cmd_history[i])) begin
+                    $fdisplay(fh, "%s", uvm_debug.cmd_history[i]);
+                end
             end
             $fclose(fh);
             $display("history saved to file: %s", args[2]);
@@ -359,6 +365,7 @@ class debug_command_repeat extends uvm_debug_command_cb;
 
     task parse_args(string args[$]);
         int history_num = args[1].atoi();
+        uvm_debug.cmd_history[$] = uvm_debug.cmd_history[history_num];
         uvm_debug.run_debug_command(uvm_debug.cmd_history[history_num]);
     endtask
 endclass: debug_command_repeat

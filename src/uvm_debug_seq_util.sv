@@ -219,6 +219,16 @@ class uvm_debug_seq_util extends uvm_object;
         end
     endtask : seqr_execute_item
 
+    // set sequence arbitration in the sequencer
+    virtual function void seqr_set_arbitration(string seqr_path, uvm_sequencer_arb_mode arb_mode);
+        uvm_sequencer_base seqr = uvm_sequencer_base'(uvm_top.find(seqr_path));
+        if (seqr == null) begin
+            `uvm_warning("UVM_DBG/SEQ_UTIL", {"sequencer not found: ", seqr_path});
+        end else begin
+            seqr.set_arbitration(arb_mode);
+        end
+    endfunction : seqr_set_arbitration
+
     // -------------------------------------------------------------- 
     // add debug commands
     // -------------------------------------------------------------- 
@@ -439,6 +449,25 @@ class debug_command_seqr_execute_item extends debug_command_seq_util_cb;
     endtask
 endclass: debug_command_seqr_execute_item
 
+class debug_command_seqr_set_arbitration extends debug_command_seq_util_cb;
+    `uvm_object_utils(debug_command_seqr_set_arbitration)
+    function new(string name = "debug_command_seqr_set_arbitration");
+        super.new(name);
+        // -------------------------------------------------------------- 
+        command =       "seqr_set_arbitration";
+        usage =         "<seqr_path> <seq_arb_type>";
+        description =   "set sequence arbitration of the sequencer";
+        // -------------------------------------------------------------- 
+    endfunction
+
+    task parse_args(string args[$]);
+        string options[string];
+        uvm_sequencer_arb_mode seq_arb_type;
+        void'(uvm_enum_wrapper#(uvm_sequencer_arb_mode)::from_name(args[2], seq_arb_type));
+        seq_util.seqr_set_arbitration(args[1], seq_arb_type);
+    endtask
+endclass: debug_command_seqr_set_arbitration
+
 // -------------------------------------------------------------- 
 // add debug commands
 // -------------------------------------------------------------- 
@@ -468,6 +497,8 @@ function void uvm_debug_seq_util::add_debug_commands();
     new_dbg_cmd = debug_command_seqr_stop_sequences::type_id::create("seqr_stop_sequences");
     dbg_cmd.push_back(new_dbg_cmd);
     new_dbg_cmd = debug_command_seqr_execute_item::type_id::create("seqr_execute_item");
+    dbg_cmd.push_back(new_dbg_cmd);
+    new_dbg_cmd = debug_command_seqr_set_arbitration::type_id::create("seqr_set_arbitration");
     dbg_cmd.push_back(new_dbg_cmd);
 
     foreach (dbg_cmd[i]) begin

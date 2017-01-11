@@ -315,11 +315,15 @@ class tb_env extends uvm_env;
    task main_phase(uvm_phase phase);
        uvm_debug_util uvm_debug = uvm_debug_util::get();
        uvm_debug.reg_util.set_top(regmodel);
+       uvm_debug.prompt(1);
+       vip.drv.print_debug_info = 1;
 
       `uvm_info("TB/TRACE", "Applying primary stimulus...", UVM_NONE);
-      uvm_debug.prompt(1);
-
       fork
+         begin
+            #2000;
+            uvm_debug.prompt(1);
+         end
          begin
             uvm_objection obj;
             #2000000;

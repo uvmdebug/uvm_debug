@@ -85,3 +85,35 @@ class vip_idle_esc_seq extends vip_sequence;
   endtask
   
 endclass
+
+class vip_my01_seq extends vip_sequence;
+
+  `uvm_object_utils(vip_my01_seq)
+
+  function new(string name="vip_my01_seq");
+    super.new(name);
+  endfunction
+  
+  virtual task body();
+     repeat (128) begin
+        `uvm_do_with(req, {chr == 8'h01;})
+     end
+  endtask
+  
+endclass
+
+class vip_my55_seq extends vip_sequence;
+
+  `uvm_object_utils(vip_my55_seq)
+
+  function new(string name="vip_my55_seq");
+    super.new(name);
+  endfunction
+  
+  virtual task body();
+     repeat (128) begin
+        `uvm_do_with(req, {chr == 8'h55;})
+     end
+  endtask
+  
+endclass

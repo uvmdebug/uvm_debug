@@ -101,6 +101,8 @@ class vip_driver extends uvm_driver#(vip_tr);
       wait (!m_suspended);
    endtask
 
+   bit print_debug_info = 0;
+
    virtual task run_phase(uvm_phase phase);
       int    count = 0;
       vip_tr tr;
@@ -132,11 +134,21 @@ class vip_driver extends uvm_driver#(vip_tr);
                
                   if (count == 0) send(8'hB2); // SYNC
 
+                  tr = null;
                   seq_item_port.try_next_item(tr);
                   
-                  if (tr == null) send(8'h81); // IDLE
-                  else begin
-                     if (tr.chr == 8'h81 || tr.chr == 8'hE7) begin
+                  if (tr == null) begin
+                     if (print_debug_info == 1) begin
+                         `uvm_info("DEMO", "tr = null, send IDLE", UVM_LOW);
+                     end
+                     send(8'h81); // IDLE
+                  end else begin
+                     bit [7:0] chr = tr.chr;
+                     if (print_debug_info == 1) begin
+                        `uvm_info("DEMO", $sformatf("tr.chr: %0x", tr.chr), UVM_LOW);
+                     end
+                     seq_item_port.item_done();
+                     if (chr == 8'h81 || chr == 8'hE7) begin
                         send(8'hE7); // ESC
                         if (count == 5) begin
                            send(8'hB2); // SYNC
@@ -144,10 +156,7 @@ class vip_driver extends uvm_driver#(vip_tr);
                         end
                         else count++;
                      end
-                     send(tr.chr);
-                     
-                     seq_item_port.item_done();
-                     tr = null;
+                     send(chr);
                   end
                   count = (count + 1) % 6;
                end

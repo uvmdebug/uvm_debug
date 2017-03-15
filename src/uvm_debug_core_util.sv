@@ -54,7 +54,7 @@ function automatic void extract_options(ref string args[$], ref string options[s
             string key = option.substr(1,(option.len()-1));
             if (args[0][0] == "-" || args.size() == 0) begin
                 // the argument is an option flag
-                options[key] = 1;
+                options[key] = "1";
             end else begin
                 string value = args.pop_front();
                 options[key] = value;
@@ -65,7 +65,7 @@ function automatic void extract_options(ref string args[$], ref string options[s
             if (index == -1) begin
                 // the argument is an option flag
                 string key = option.substr(1,(option.len()-1));
-                options[key] = 1;
+                options[key] = "1";
             end else begin
                 string key = option.substr(1,(index - 1));
                 string value = option.substr((index+1),(option.len()-1));

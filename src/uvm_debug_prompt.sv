@@ -206,7 +206,7 @@ virtual class automatic uvm_debug_command_cb extends uvm_object;
     string usage;           // usage, list of arguments
     string description;     // detail description of the command 
 
-    function new(name = "uvm_debug_command_cb");
+    function new(string name = "uvm_debug_command_cb");
         super.new(name);
         uvm_debug.debug_commands.push_back(this);
     endfunction

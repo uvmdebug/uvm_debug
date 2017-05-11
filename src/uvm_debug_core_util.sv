@@ -114,8 +114,11 @@ function automatic int str_to_int(string s);
         // bin
         s1 = text::slice(s, 2);
         str_to_int = s1.atobin();
+    end else if (uvm_is_match("-*", s)) begin
+        // negative number
+        s1 = text::slice(s, 1);
+        str_to_int = 0 - s1.atoi();
     end else begin
-        // dec
         str_to_int = s.atoi();
     end
 endfunction

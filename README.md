@@ -1,5 +1,5 @@
 #UVM interactive debug library (uvm_debug)
-**Horace Chan (horace.chan@microsemi.com)**
+**Horace Chan (horace.chan@amd.com)**
 
 uvm_debug library is a free, open-source library writter in SystemVerilog and C (SV-DPI).  uvm_debug is provided under MIT license and it available on GitHub.
 
